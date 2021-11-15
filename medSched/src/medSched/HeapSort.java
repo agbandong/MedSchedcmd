@@ -2,7 +2,7 @@ package medSched;
 
 public class HeapSort {
 
-	void heapify(int arr[], int n, int i) {
+	private static void heapify(int arr[], int n, int i) {
 	// Find largest among root, left child and right child
 	int largest = i;
 	int l = 2 * i + 1;
@@ -24,7 +24,7 @@ public class HeapSort {
 	    }
 	}
 
-	public void headSort(int[] arr) {
+	public static void heapSort(int[] arr) {
 		// TODO Auto-generated method stub
 		int n = arr.length;
 	      
@@ -45,7 +45,7 @@ public class HeapSort {
 	}
 
 	// Function to print an array
-	    static void printArray(int arr[]) {
+	    public static void printArray(int arr[]) {
 	        int n = arr.length;
 	        for (int i = 0; i < n; ++i)
 	            System.out.print(arr[i] + " ");
