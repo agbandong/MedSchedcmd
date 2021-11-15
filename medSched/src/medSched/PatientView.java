@@ -110,7 +110,17 @@ public class PatientView {
 	            }
 
 	        }while(!(userResp.equals("Yes") || userResp.equals("yes") || userResp.equals("YES") || userResp.equals("No") || userResp.equals("no") || userResp.equals("NO")));
-
+	        
+	        //Set Appointment
+	        DisplayCalendar();
+	        System.out.println("\nPlease enter the date that you want to be schedule on. (mm/dd/yyyy)");
+	        System.out.println("====================================================================================");
+	        System.out.println("Take Note: Please make sure that you are available on that date you have set.");
+	        System.out.println("           The System will not automatically re-sched you if failed to do so.");
+	        System.out.println("====================================================================================");
+	        System.out.print("Set date here: ");
+	        setDate = sc.nextLine();
+	        
 	        //Question #1
 	        System.out.println("\n1. Do you have problems with any of these systems? Yes or No");
 	        System.out.println("====================================================================================");
@@ -1122,18 +1132,10 @@ public class PatientView {
 	        lineCur.add(pCurrency);
 	        lineName.add(userName);
 	        
-	        DisplayCalendar();
-	        System.out.println("Points:"+lineCur);
-	        System.out.println("\nPlease enter the date that you want to be schedule on. (mm/dd/yyyy)");
-	        System.out.println("====================================================================================");
-	        System.out.println("Take Note: Please make sure that you are available on that date you have set.");
-	        System.out.println("           The System will not automatically re-sched you if failed to do so.");
-	        System.out.println("====================================================================================");
-	        System.out.print("Set date here: ");
-	        setDate = sc.nextLine();
 
 	        date = new SimpleDateFormat("MM/dd/yyyy").parse(setDate);
-
+	        
+	        System.out.println("Points:"+lineCur);
 	        System.out.println("\nYou all set! please come on this Date: "+date);
 	        
 	        String FileName = "PatientFile";
