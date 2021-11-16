@@ -2,23 +2,21 @@ package medSched;
 import java.util.Scanner;
 import java.util.HashSet;
 import java.util.Date;
-import java.util.*;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.IOException;
 
 
 public class PatientView {
-
+	
 		public static void main(String[] args)throws Exception {
 	        Scanner sc = new Scanner(System.in);
 
 	        ArrayList<Integer> lineCur = new ArrayList<Integer>();
 	        ArrayList<String> lineName = new ArrayList<String>();
-
+	        
+	        //TODO Move the variables to the Patient Form
 	        String error = "Error: Invalid input";
 	        String userName = "";
 	        String userResp = "";
@@ -47,6 +45,8 @@ public class PatientView {
 	        int userAns4 = 0;
 	        int userAns7 = 0;
 	        int userResp6 = 0;
+	        
+	        //TODO Make the points into one point variable
 	        int p = 0;
 	        int p1 = 0;
 	        int p2 = 0;
@@ -58,11 +58,13 @@ public class PatientView {
 	        int p8 = 0;
 	        int p9 = 0;
 	        int tp = 0;
+	        //TODO Please use Boolean. Its not that hard
 	        int confirm = 1;
-	        
+	       
 	        HashSet<Integer> listAns = new HashSet<Integer>();
 	        HashSet<Integer> listAns1 = new HashSet<Integer>();
 
+	        //TODO Move to a new function called MedSched Application
 	        //Title page
 	        System.out.println("====================WELCOME TO MEDSCHED=========================");
 	        System.out.println("Registration Form\n");
@@ -391,7 +393,8 @@ public class PatientView {
 
 	            }
 	        }while(!(userAns9.equals("A") || userAns9.equals("B") || userAns9.equals("C") || userAns9.equals("a") || userAns9.equals("b") || userAns9.equals("c")));
-
+	        
+	        
 	        do{
 	            //User info clarificationn
 	            System.out.println("\n\n====================================================================================");
@@ -491,7 +494,9 @@ public class PatientView {
 	                System.out.println("\n====================================================================================");
 	                System.out.print("Enter number here: ");
 	                userResp6 = sc.nextInt();
-
+	                
+	                //TODO Just use the switch case for the entire program. Just call the different cases when answering
+	                //and move to the next case. You know what, just make this into the actual questionnaire
 	                switch(userResp6){
 	                    case 1:
 	                        do{
@@ -1047,7 +1052,9 @@ public class PatientView {
 	                System.out.print("Try Again: ");
 	            }
 	        }while(!(userResp5.equals("Yes") || userResp5.equals("yes") || userResp5.equals("YES")));
-
+	        
+	        //TODO Make separate scoring function or class
+	        
 	        //Scoring
 	        //Q1
 	        if(userResp1.equals("Yes") || userResp1.equals("yes") || userResp1.equals("YES")){
@@ -1136,6 +1143,7 @@ public class PatientView {
 
 	        System.out.println("\nYou all set! please come on this Date: "+date);
 	        
+	        //TODO Move this to PatientFormsList
 	        String FileName = "PatientFile";
 	        try {
 	        	FileWriter patientFile = new FileWriter(FileName,true);
@@ -1150,8 +1158,13 @@ public class PatientView {
 	}
 		
 		
+		
+		private static void patientForm() {
+			
+		}
+		
 		private static void DisplayCalendar() {
-			// TODO Auto-generated method stub
+			// TODO Yeah This is good
 			int Y = 2021;    // year
 	        int startDayOfMonth = 5;
 	        int spaces = startDayOfMonth;

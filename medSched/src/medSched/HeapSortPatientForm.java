@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class HeapSortPatientForm {
 
-	private static void heapify(ArrayList<PatientForm> arr, int n, int i) {
+	private static void heapify(ArrayList<PatientFormAnswers> arr, int n, int i) {
 	// Find largest among root, left child and right child
 	int largest = i;
 	int l = 2 * i + 1;
@@ -17,7 +17,7 @@ public class HeapSortPatientForm {
 	
 	// Swap and continue heapifying if root is not largest
 	if (largest != i) {
-	    PatientForm swap = arr.get(i);
+	    PatientFormAnswers swap = arr.get(i);
 	    arr.set(i, arr.get(largest));
 	    arr.set(largest, swap);
 	
@@ -25,7 +25,7 @@ public class HeapSortPatientForm {
 	    }
 	}
 
-	public static void heapSort(ArrayList<PatientForm> arr) {
+	public static void heapSort(ArrayList<PatientFormAnswers> arr) {
 		// TODO Auto-generated method stub
 		int n = arr.size();
 	      
@@ -36,7 +36,7 @@ public class HeapSortPatientForm {
 	
 	    // Heap sort
 	    for (int i = n - 1; i >= 0; i--) {
-	        PatientForm temp = arr.get(0);
+	        PatientFormAnswers temp = arr.get(0);
 	        arr.set(0, arr.get(i));
 	        arr.set(i, temp);
 	
@@ -46,7 +46,7 @@ public class HeapSortPatientForm {
 	}
 
 	// Function to print an array
-	    public static void printArrayList(ArrayList<PatientForm> arr) {
+	    public static void printArrayList(ArrayList<PatientFormAnswers> arr) {
 	        int n = arr.size();
 	        for (int i = 0; i < n; ++i)
 	            System.out.print(arr.get(i).getPriority() + " ");
