@@ -2,7 +2,6 @@ package medSched;
 
 public class PatientView {
 	private static PatientFormsList patientFormsList = new PatientFormsList();
-	
 	public static void createForm() {
 		PatientForm patientForm = new PatientForm();
         System.out.println("Registration Form\n");
@@ -18,9 +17,8 @@ public class PatientView {
         patientForm.scheduleDate();
         patientFormsList.addPatientFormAnswers(patientForm.getAnswers());
         System.out.println("\nYou all set! please come on this Date: "+ patientForm.getAnswers().getSetDate());
-	}
-
 	public static PatientFormsList getPatientFormsList() {
+    
 		return patientFormsList;
 	}
 
