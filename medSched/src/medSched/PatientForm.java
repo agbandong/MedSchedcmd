@@ -1,16 +1,19 @@
 package medSched;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class PatientFormQuestions{
+public class PatientForm{
 	private PatientFormAnswers answers = new PatientFormAnswers();
+	String userResp;
+	int userRespInt;
 	private Scanner sc = new Scanner(System.in);
-	//TODO update the needed things later
+	
+	//TODO update the needed things later and improve security of function
 	public void patientFormQuestions(int userNum) {
-			String userResp;
-			int userRespInt;
 			boolean loop;
 			switch(userNum){
 	        case 1:
@@ -66,10 +69,10 @@ public class PatientFormQuestions{
 	            	answers.setPatientProblems(enterNumbers(14));
 	            }
 	            else {
-	            	answers.setPatientProblems(null);
 	            };
 	           break;
-	
+	        
+	           //TODO create a set of allergies instead
 	        case 7:
 	        	//Question #2
 	        	sc.nextLine();
@@ -86,6 +89,8 @@ public class PatientFormQuestions{
                 System.out.print("Enter here: ");
                 answers.setSmokingDrinking(yesOrNo());
 	            break;
+	            
+	          //TODO create a set of medications instead
 	        case 9:
                 //Question #4
                 System.out.print("\n====================================================================================");
@@ -102,10 +107,9 @@ public class PatientFormQuestions{
                 System.out.println("\n====================================================================================");
 
                 if(yesOrNo()) {
-	            	answers.setFamilyHistory(enterNumbers(4));
+	            	answers.setFamilyHistory(enterNumbers(6));
 	            }
 	            else {
-	            	answers.setFamilyHistory(null);
 	            };
 	            break;
 	
@@ -130,12 +134,17 @@ public class PatientFormQuestions{
                 do {
                 	System.out.print("Enter here: ");
                 	userRespInt = sc.nextInt();
-                	if(userRespInt < 1 || userRespInt > 10) 
+                	if(userRespInt < 1 || userRespInt > 10) {
                 		System.out.println("Only from 1 to 10");
+                		}
+                	else {
+                		answers.setPainScale(userRespInt);
+                	}
+                	;
                 }while(userRespInt < 1 || userRespInt > 10);
                 break;
 	        case 14:
-	        	//TODO create a separate function for this
+	        	//TODO create a separate function for switch case get stuff
                 //Question #9
                 System.out.print("====================================================================================");
                 System.out.println("Purpose of Visit");
@@ -176,13 +185,52 @@ public class PatientFormQuestions{
 	            answers.setVaccinated(yesOrNo());
 	            break;
 	        default:
-	            System.out.print("Try Again: ");
+	            System.out.print("0 to 15 only: ");
 	            break;
 	            
 	    }
 	}
 	
-	private boolean yesOrNo() {
+	//TODO check if there are any other points
+	public void checkPriority() {
+		int points = 0;
+		points += (answers.getUserAge() < 18 || answers.getUserAge() >= 60) ? 10 : 0;
+		points += (answers.isUserPWD()) ? 10 : 0;
+		points += (!answers.getPatientProblems().isEmpty()) ? 10 : 0;
+		points += (!answers.getFamilyHistory().isEmpty()) ? 10 : 0;
+		//TODO Do we want actually sick people in the hospital
+		points += (answers.isInGoodHealth()) ? 10 : 0;
+		points += (answers.wasInAccident()) ? 10 : 0;
+		points += (answers.getPainScale() > 6) ? 10 : 0;
+		points += (answers.isUserPWD()) ? 10 : 0;
+		points += (answers.isVaccinated()) ? 10 : 0;
+		answers.setPriority(points);
+	}
+	
+	public void scheduleDate() {
+		DisplayCalendar();
+        System.out.println("Priority:" + Integer.toString(100 - answers.getPriority()));
+        System.out.println("\nPlease enter the date that you want to be schedule on. (mm/dd/yyyy)");
+        System.out.println("====================================================================================");
+        System.out.println("Take Note: Please make sure that you are available on that date you have set.");
+        System.out.println("           The System will not automatically re-sched you if failed to do so.");
+        System.out.println("====================================================================================");
+        
+        //TODO add loop for try-catch
+        while(true) {
+	        try {
+	        	System.out.print("Set date here month/day/year: ");
+	            String setDate = sc.nextLine();
+				answers.setDate(new SimpleDateFormat("MM/dd/yyyy").parse(setDate));
+				break;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Incorrect format");
+			}
+        }
+	}
+	
+	public boolean yesOrNo() {
 		while(true) {
 			System.out.println(" Yes or No");
             System.out.print("\nEnter here: ");
@@ -197,7 +245,7 @@ public class PatientFormQuestions{
 	}
 	
 	//TODO change to Set<String> and make this adaptive in the future
-	private Set<Integer> enterNumbers(int max) {
+	public Set<Integer> enterNumbers(int max) {
 		Set<Integer> intSet = new HashSet<>();
 		while(true) {
 			System.out.print("\nEnter a number of an answer or enter 0 to stop: ");
@@ -212,5 +260,87 @@ public class PatientFormQuestions{
                 System.out.println("\n0 to " + Integer.toString(max) + " only");
             }
     	}
+	}
+
+
+	public PatientFormAnswers getAnswers() {
+		return answers;
+	}
+
+
+	public void setAnswers(PatientFormAnswers answers) {
+		this.answers = answers;
+	}
+	
+	//TODO Create hashmaps for the case so it is easier to 
+	//call outside. Add descriptions
+	public void patientAnswersEdit() {
+		while(true) {
+			System.out.println("What do you need to edit. Enter 0 to stop");
+			userRespInt = sc.nextInt();
+			if (userRespInt == 0) {
+				return;
+			}
+			else {
+				patientFormQuestions(userRespInt);
+				printAnswers();
+			}
+		}
+	};
+	
+	private static void DisplayCalendar() {
+		// TODO Yeah This is good
+		int Y = 2021;    // year
+        int startDayOfMonth = 5;
+        int spaces = startDayOfMonth;
+
+        // startDayOfMonth
+
+        // months[i] = name of month i
+        String[] months = {
+                "",                               // leave empty so that we start with months[1] = "January"
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            };
+
+            // days[i] = number of days in month i
+            int[] days = {
+                0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+            };
+
+            for (int M = 1; M <= 12; M++) {
+
+            // check for leap year
+            if  ((((Y % 4 == 0) && (Y % 100 != 0)) ||  (Y % 400 == 0)) && M == 2)
+                days[M] = 29;
+
+            
+            // print calendar header
+            // Display the month and year
+            System.out.println("          "+ months[M] + " " + Y);
+
+            // Display the lines
+            System.out.println("_____________________________________");
+            System.out.println("   Sun  Mon Tue   Wed Thu   Fri  Sat");
+
+            // spaces required
+               spaces = (days[M-1] + spaces)%7;
+            
+            // print the calendar
+            for (int i = 0; i < spaces; i++)
+                System.out.print("     ");
+            for (int i = 1; i <= days[M]; i++) {
+                System.out.printf(" %3d ", i);
+                if (((i + spaces) % 7 == 0) || (i == days[M])) System.out.println();
+            }
+            
+            System.out.println();
+        }
+	}
+	
+	public void printAnswers() {
+		answers.printAnswers();
 	}
 }

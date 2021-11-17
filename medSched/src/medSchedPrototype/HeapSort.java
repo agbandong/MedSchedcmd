@@ -1,4 +1,4 @@
-package medSched;
+package medSchedPrototype;
 
 public class HeapSort {
 

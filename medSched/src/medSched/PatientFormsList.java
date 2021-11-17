@@ -5,13 +5,20 @@ public class PatientFormsList {
 	private ArrayList<PatientFormAnswers> patientForms = new ArrayList<>();
 	private int idNum = 1;
 	
-	
-	
-	public void addPatientForm(int priority, String name) {
-		patientForms.add(new PatientFormAnswers(idNum, priority, name));
-		HeapSortPatientForm.heapSort(patientForms);
+	public PatientFormsList() {
+		super();
+		
+	}
+
+
+
+	public void addPatientFormAnswers(PatientFormAnswers newAnswers) {
+		newAnswers.setId(idNum);
+		patientForms.add(newAnswers);
 		idNum++;
+		HeapSortPatientForm.heapSort(patientForms);
 		printPatientForms();
+		
 	}
 	
 	
@@ -26,9 +33,8 @@ public class PatientFormsList {
 	}
 	
 	public void printPatientForms() {
-		for(PatientFormAnswers patientForm:patientForms) {
-			System.out.println("idNumber: "+ Integer.toString(patientForm.getId()) + " name: " +
-					patientForm.getName() + " priority number: " + Integer.toString(patientForm.getPriority()));
+		for(PatientFormAnswers patientFormAnswers:patientForms) {
+			patientFormAnswers.printAnswers();
 		}
 	}
 }
